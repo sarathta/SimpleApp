@@ -1,32 +1,40 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#"><font style="vertical-align: inherit;">Simple App</font></a>
-      <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse"> -->
-        <ul class="navbar-nav me-auto mb-2 mb-md-0" *ngIf="accountService.currentUser$ | async">
-          <li class="nav-item">
-            <a class="nav-link" href="#"><font style="vertical-align: inherit;">Matches</font></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><font style="vertical-align: inherit;">Lists</font></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"><font style="vertical-align: inherit;">Messages</font></a>
-        </ul>
-        <div class="dropdown" *ngIf="accountService.currentUser$ | async" dropdown>
-            <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome User</a>
-            <div class="dropdown-menu" *dropdownMenu>
-                <a class="dropdown-item">Edit profile</a>
-                <a class="dropdown-item" (click)="logout()">Logout</a>
-            </div>
-        </div>
-        <form *ngIf="!(accountService.currentUser$ | async)" #loginFOrm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off" >
-          <input class="form-control me-2" type="text" name="username" [(ngModel)]="model.username" placeholder="Username" >
-          <input class="form-control me-2" type="password" name="password" [(ngModel)]="model.password" placeholder="Password" >
-          <button class="btn btn-outline-success" type="submit"><font style="vertical-align: inherit;">Login</font></button>
-        </form>
-      <!-- </div> -->
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+  <div class="container">
+    <a class="navbar-brand" routerLink="/" routerLinkActive="active">
+      <font style="vertical-align: inherit;">Simple App</font>
+    </a>
+    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <ng-container *ngIf="accountService.currentUser$ | async">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/members" routerLinkActive="active">
+            <font style="vertical-align: inherit;">Matches</font>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/lists" routerLinkActive="active">
+            <font style="vertical-align: inherit;">Lists</font>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/messages" routerLinkActive="active">
+            <font style="vertical-align: inherit;">Messages</font>
+          </a>
+        </li>
+      </ng-container>
+    </ul>
+    <div class="dropdown" *ngIf="(accountService.currentUser$ | async) as user" dropdown>
+      <a class="dropdown-toggle text-light text-decoration-none" dropdownToggle>Welcome {{user.username | titlecase}}</a>
+      <div class="dropdown-menu" *dropdownMenu>
+        <a class="dropdown-item">Edit profile</a>
+        <a class="dropdown-item" (click)="logout()">Logout</a>
+      </div>
     </div>
-  </nav>
+    <form *ngIf="!(accountService.currentUser$ | async)" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
+      <input class="form-control me-2" type="text" name="username" [(ngModel)]="model.username" placeholder="Username">
+      <input class="form-control me-2" type="password" name="password" [(ngModel)]="model.password" placeholder="Password">
+      <button class="btn btn-outline-dark" type="submit">
+        <font style="vertical-align: inherit;">Login</font>
+      </button>
+    </form>
+  </div>
+</nav>
